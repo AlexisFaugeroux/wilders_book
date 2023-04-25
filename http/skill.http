@@ -1,0 +1,25 @@
+GET http://localhost:3000/api/skill
+
+###
+POST http://localhost:3000/api/skill
+content-type: application/json
+
+{
+    "name": "Java"
+}
+
+###
+PUT http://localhost:3000/api/skill/2
+content-type: application/json
+
+{
+    "name": "PHP"
+}
+
+###
+DELETE http://localhost:3000/api/skill/2
+content-type: application/json
+
+{
+    "name": "Javascript"
+}

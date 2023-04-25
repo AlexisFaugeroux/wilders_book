@@ -1,5 +1,6 @@
 const datasource = require("../utils").datasource;
 const wilder = require("../entity/Wilder");
+const skill = require("../entity/Skill");
 
 module.exports = {
     create: async (req, res) => {
@@ -23,7 +24,7 @@ module.exports = {
         try {
             let searchedItem = await datasource.getRepository(wilder).findOne({
                 where: {
-                    id: req.body.id
+                    id: req.params.id
                 }
             });
 
@@ -38,12 +39,10 @@ module.exports = {
     },
     delete: async (req, res) => {
         try {
-            console.log(req.body);
-
             const deletedItem = await datasource
                 .getRepository(wilder)
                 .delete({
-                        id: req.body.id
+                        id: req.params.id
                 });
             
             res.status(200).send(deletedItem);
@@ -51,4 +50,30 @@ module.exports = {
             console.log(error);
         }
     },
+    addSkill: async (req, res) => {
+        try {
+            const wilderToUpdate = await datasource.getRepository(wilder).findOne({
+                where: {
+                    id: req.params.id
+                }
+            });
+
+            console.log(wilderToUpdate);
+
+            const skillToAdd = await datasource.getRepository(skill).findOne({
+                where: {
+                    id: req.body.id
+                }
+            });
+            console.log(skillToAdd);
+
+            wilderToUpdate.skills = [...wilderToUpdate.skills, skillToAdd];
+            await datasource.getRepository(wilder).save(wilderToUpdate);
+
+            res.status(200).send({...wilderToUpdate, message: "Skill added"});
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }

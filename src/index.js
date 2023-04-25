@@ -1,6 +1,7 @@
 const express = require("express");
 const datasource = require("./utils").datasource;
-const wilderController = require("./controller/wilder");
+
+const router = require("./router");
 
 const app = express();
 
@@ -10,13 +11,11 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-app.get("/api/wilders",wilderController.getAll);
+app.use(router);
 
-app.post("/api/wilder", wilderController.create);
-
-app.put("/api/wilder", wilderController.update);
-
-app.delete("/api/wilder", wilderController.delete);
+app.use(function(req, res, next) {
+  res.status(404).send('Sorry cant find that!');
+});
 
 const start = async () => {
   await datasource.initialize();

@@ -1,4 +1,4 @@
-GET http://localhost:3000/api/wilders
+GET http://localhost:3000/api/wilder
 
 ###
 POST http://localhost:3000/api/wilder
@@ -9,19 +9,25 @@ content-type: application/json
 }
 
 ###
-PUT http://localhost:3000/api/wilder
+PUT http://localhost:3000/api/wilder/4
 content-type: application/json
 
 {
-    "id": 4,
     "name": "John Doe"
 }
 
 ###
-DELETE http://localhost:3000/api/wilder
+DELETE http://localhost:3000/api/wilder/4
 content-type: application/json
 
 {
-    "id": 4,
     "name": "Jane Doe"
+}
+
+###
+POST http://localhost:3000/api/wilder/2/skill
+content-type: application/json
+
+{
+    "id": 3
 }
