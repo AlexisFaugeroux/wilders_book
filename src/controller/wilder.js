@@ -1,6 +1,7 @@
 const datasource = require("../utils").datasource;
 const wilder = require("../entity/Wilder");
 const skill = require("../entity/Skill");
+const grade = require("./grade");
 
 module.exports = {
     create: async (req, res) => {
@@ -71,6 +72,32 @@ module.exports = {
             await datasource.getRepository(wilder).save(wilderToUpdate);
 
             res.status(200).send({...wilderToUpdate, message: "Skill added"});
+
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    addGrade: async (req, res) => {
+        try {
+            const wilderToUpdate = await datasource.getRepository(wilder).findOne({
+                where: {
+                    id: req.params.id
+                }
+            });
+
+            console.log(wilderToUpdate);
+
+            const gradeToAdd = await datasource.getRepository(grade).findOne({
+                where: {
+                    id: req.body.id
+                }
+            });
+            console.log(gradeToAdd);
+
+            wilderToUpdate.grades = [...wilderToUpdate.grades, gradeToAdd];
+            await datasource.getRepository(wilder).save(wilderToUpdate);
+
+            res.status(200).send({...wilderToUpdate, message: "Grade added"});
 
         } catch (error) {
             console.log(error);

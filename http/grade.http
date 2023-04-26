@@ -1,0 +1,27 @@
+GET http://localhost:3000/api/grade
+
+###
+POST http://localhost:3000/api/grade
+content-type: application/json
+
+{
+    "grade": 1,
+    "name": "First Wilder",
+    "skill": "Javascript"
+}
+
+###
+PUT http://localhost:3000/api/grade/2
+content-type: application/json
+
+{
+    "grade": 3
+}
+
+###
+DELETE http://localhost:3000/api/grade/2
+content-type: application/json
+
+{
+    "grade": 1
+}

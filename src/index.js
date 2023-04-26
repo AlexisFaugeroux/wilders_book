@@ -1,10 +1,12 @@
 const express = require("express");
-const datasource = require("./utils").datasource;
-
+const cors = require("cors");
 const router = require("./router");
+
+const datasource = require("./utils").datasource;
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
