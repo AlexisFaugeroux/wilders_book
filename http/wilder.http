@@ -1,33 +1,34 @@
-GET http://localhost:3000/api/wilder
-
-###
-POST http://localhost:3000/api/wilder
-content-type: application/json
+POST http://localhost:5000/api/wilder
+Content-Type: application/json
 
 {
-    "name": "Jane Doe"
+    "name": "Bobby Doe"
 }
-
 ###
-PUT http://localhost:3000/api/wilder/4
-content-type: application/json
+GET http://localhost:5000/api/wilder
+Content-Type: application/json
+###
+PUT http://localhost:5000/api/wilder
+Content-Type: application/json
 
 {
-    "name": "John Doe"
+    "id": 11,
+    "newData": {
+        "name": "John"
+    }
 }
-
 ###
-DELETE http://localhost:3000/api/wilder/4
-content-type: application/json
+DELETE http://localhost:5000/api/wilder
+Content-Type: application/json
 
 {
-    "name": "Jane Doe"
+    "id": 11
 }
-
 ###
-POST http://localhost:3000/api/wilder/2/skill
-content-type: application/json
+PUT http://localhost:5000/api/addSkill
+Content-Type: application/json
 
 {
-    "id": 3
+    "wilderName": "Bobby Doe",
+    "skillName": "PHP"
 }

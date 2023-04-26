@@ -3,7 +3,7 @@ const skillController = require("../controller/skill");
 
 const skillRouter = express.Router();
 
-skillRouter.get("/api/skill",skillController.getAll);
+skillRouter.get("/api/skill",skillController.read);
 skillRouter.post("/api/skill", skillController.create);
 skillRouter.put("/api/skill/:id", skillController.update);
 skillRouter.delete("/api/skill/:id", skillController.delete);

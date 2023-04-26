@@ -1,28 +1,25 @@
 const express = require("express");
-const cors = require("cors");
+const cors = require("cors")
+const dataSource = require("./utils").dataSource;
 const router = require("./router");
-
-const datasource = require("./utils").datasource;
 
 const app = express();
 
-app.use(cors());
 app.use(express.json());
+app.use(cors({ origin: "http://localhost:5000"}))
 
 app.get("/", (req, res) => {
-  res.send("Hello World");
-});
+    res.send("Hello World");
+})
 
 app.use(router);
 
-app.use(function(req, res, next) {
-  res.status(404).send('Sorry cant find that!');
-});
+app.use((req, res, next) => {
+    res.status(404).send("Sorry can't find that !");
+})
 
 const start = async () => {
-  await datasource.initialize();
-  app.listen(3000, () => console.log("Server started on 3000"));
+    await dataSource.initialize();
+    app.listen(5000, () => console.log("Server started on 5000"));
 }
-
-//Start Server
-start();
+start(); 

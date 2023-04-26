@@ -1,106 +1,88 @@
-const datasource = require("../utils").datasource;
-const wilder = require("../entity/Wilder");
-const skill = require("../entity/Skill");
-const grade = require("./grade");
-
+const dataSource = require("../utils").dataSource;
+const Wilder = require("../entity/Wilder")
+const Skill = require("../entity/Skill")
+const Grade = require("../entity/Grade")
 module.exports = {
     create: async (req, res) => {
         try {
-            const createdItem = await datasource.getRepository(wilder).save(req.body);
-            res.send({...createdItem, message: "Created Wilder"});
-        } catch (error) {
+            await dataSource
+            .getRepository(Wilder)
+            .save(req.body);
+            res.send("Created wilder");
+            
+        } catch(error) {
             console.log(error);
-        }
-
+            res.send("Error while creating wilder");
+            }
     },
-    getAll: async (req, res) => {
+    read: async (req, res) => {
         try {
-            const result = await datasource.getRepository(wilder).find();
-            res.status(200).send(result);
-        } catch (error) {
-            console.log(error);
-        }
+            const grades = await dataSource.getRepository(Grade).find();
+            console.log(grades);
+
+            const wilders = await dataSource.getRepository(Wilder).find();
+            console.log(wilders)
+
+            const data = wilders.map((wilder) => {
+                const wilderGrades = grades.filter(
+                    (grade) => grade.wilder.id === wilder.id
+                )
+                const wilderGradeLean = wilderGrades.map((el) => {
+                    return { title: el.skill.name, votes: el.grade};
+                });
+                const result = {
+                    ...wilder,
+                    skills: wilderGradeLean,
+                }
+                console.log(result);
+                return result
+
+            })
+            res.send(data)
+
+        } catch(error) {
+                console.log(error)
+                res.send("Error while creating wilder");
+            }
     },
     update: async (req, res) => {
         try {
-            let searchedItem = await datasource.getRepository(wilder).findOne({
-                where: {
-                    id: req.params.id
-                }
-            });
-
-            searchedItem = req.body;
-            const updatedItem = await datasource.getRepository(wilder).save(searchedItem);
-
-            res.status(200).send(updatedItem);
-
-        } catch (error) {
-            console.log(error);
-        }
+            await dataSource
+            .getRepository(Wilder)
+            .update(req.body.id, req.body.newData)
+            
+                res.send("updated");
+        }catch(error) {
+                res.send("Error while creating wilder");
+            }
     },
     delete: async (req, res) => {
         try {
-            const deletedItem = await datasource
-                .getRepository(wilder)
-                .delete({
-                        id: req.params.id
-                });
-            
-            res.status(200).send(deletedItem);
-        } catch (error) {
-            console.log(error);
-        }
+            await dataSource
+            .getRepository(Wilder)
+            .delete(req.body)
+                res.send("deleted");
+        }catch(error) {
+                res.send("Error while creating wilder");
+            }
     },
     addSkill: async (req, res) => {
         try {
-            const wilderToUpdate = await datasource.getRepository(wilder).findOne({
-                where: {
-                    id: req.params.id
-                }
-            });
-
+            const wilderToUpdate = await dataSource
+            .getRepository(Wilder)
+            .findOneBy({name: req.body.wilderName});
             console.log(wilderToUpdate);
 
-            const skillToAdd = await datasource.getRepository(skill).findOne({
-                where: {
-                    id: req.body.id
-                }
-            });
-            console.log(skillToAdd);
+            const skillToAdd = await dataSource
+            .getRepository(Skill)
+            .findOneBy({name: req.body.skillName});
 
             wilderToUpdate.skills = [...wilderToUpdate.skills, skillToAdd];
-            await datasource.getRepository(wilder).save(wilderToUpdate);
+            await dataSource.getRepository(Wilder).save(wilderToUpdate)
+            res.send("Skill added to wilder");
 
-            res.status(200).send({...wilderToUpdate, message: "Skill added"});
-
-        } catch (error) {
-            console.log(error);
-        }
-    },
-    addGrade: async (req, res) => {
-        try {
-            const wilderToUpdate = await datasource.getRepository(wilder).findOne({
-                where: {
-                    id: req.params.id
-                }
-            });
-
-            console.log(wilderToUpdate);
-
-            const gradeToAdd = await datasource.getRepository(grade).findOne({
-                where: {
-                    id: req.body.id
-                }
-            });
-            console.log(gradeToAdd);
-
-            wilderToUpdate.grades = [...wilderToUpdate.grades, gradeToAdd];
-            await datasource.getRepository(wilder).save(wilderToUpdate);
-
-            res.status(200).send({...wilderToUpdate, message: "Grade added"});
-
-        } catch (error) {
-            console.log(error);
-        }
+        }catch(error) {
+                res.send("Error while creating skill");
+            }
     }
 }

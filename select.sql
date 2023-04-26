@@ -1,1 +1,1 @@
-SELECT * FROM grade LEFT JOIN grade ON wilder.id = grade.wilderId;
+SELECT * FROM wilder LEFT JOIN grade ON wilder.id = grade.wilderId;
