@@ -22,6 +22,7 @@ module.exports = new EntitySchema({
             target: "Wilder",
             type: "many-to-one",
             eager: true,
+            onDelete: 'CASCADE'
         }
     }
 });

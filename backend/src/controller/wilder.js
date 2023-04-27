@@ -1,7 +1,8 @@
 const dataSource = require("../utils").dataSource;
-const Wilder = require("../entity/Wilder")
-const Skill = require("../entity/Skill")
-const Grade = require("../entity/Grade")
+const Wilder = require("../entity/Wilder");
+const Skill = require("../entity/Skill");
+const Grade = require("../entity/Grade");
+
 module.exports = {
     create: async (req, res) => {
         try {
@@ -56,10 +57,15 @@ module.exports = {
     },
     delete: async (req, res) => {
         try {
+            // await dataSource
+            // .getRepository(Grade)
+            // .delete({skillId: req.params.id});
+
             await dataSource
             .getRepository(Wilder)
-            .delete(req.body)
-                res.send("deleted");
+            .delete(parseInt(req.params.id, 10))
+            
+            res.send("deleted");
         }catch(error) {
                 res.send("Error while creating wilder");
             }

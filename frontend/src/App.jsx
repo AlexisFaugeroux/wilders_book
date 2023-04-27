@@ -1,11 +1,11 @@
 import styles from './App.module.css';
-import wildersData from './data/wildersData';
 import axios from "axios";
 
 import { useState, useEffect } from 'react';
 
 import Wilder from './components/Wilder/Wilder';
 import Header from './components/Header/Header';
+import AddWilder from './components/AddWilder/AddWilder';
 
 function App() {
   const [wilders, setWilders] = useState([]);
@@ -27,6 +27,7 @@ function App() {
           {wilders.map((wilder) => {
             return <Wilder
               key={wilder.id + Date.now()}
+              id={wilder.id}
               name={wilder.name}
               city={wilder.city}
               skills={wilder.skills}
@@ -34,6 +35,7 @@ function App() {
           })}
         </section>
       </main>
+      <AddWilder />
       <footer>
         <div className={styles.container}>
           <p>&copy; 2022: Wild Code School</p>
