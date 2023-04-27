@@ -17,7 +17,7 @@ module.exports = {
             await dataSource.getRepository(Grade).save({
                 grade: req.body.grade,
                 skill: skillFromDB,
-                wilder: wilderFromDB,
+                wilder: wilderFromDB
             })
             res.send("Created Grade");
             

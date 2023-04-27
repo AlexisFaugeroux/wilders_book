@@ -18,15 +18,14 @@ module.exports = {
     read: async (req, res) => {
         try {
             const grades = await dataSource.getRepository(Grade).find();
-            console.log(grades);
 
             const wilders = await dataSource.getRepository(Wilder).find();
-            console.log(wilders)
 
             const data = wilders.map((wilder) => {
                 const wilderGrades = grades.filter(
                     (grade) => grade.wilder.id === wilder.id
                 )
+
                 const wilderGradeLean = wilderGrades.map((el) => {
                     return { title: el.skill.name, votes: el.grade};
                 });
@@ -34,7 +33,6 @@ module.exports = {
                     ...wilder,
                     skills: wilderGradeLean,
                 }
-                console.log(result);
                 return result
 
             })
