@@ -1,5 +1,7 @@
 import axios from "axios";
 
+import styles from './AddWilder.module.css'
+
 import { useState } from "react";
 
 const AddWilder = () => {
@@ -7,7 +9,7 @@ const AddWilder = () => {
     const [city, setCity] = useState("");
 
     return (
-        <form onSubmit={(e) => {
+        <form className={styles.addWilderForm} onSubmit={(e) => {
             e.preventDefault();
             axios.post("http://localhost:5000/api/wilder", {
                 name:name,
@@ -15,14 +17,16 @@ const AddWilder = () => {
             })
         }}>
             <label>Name:</label>
-            <input 
+            <input
+                className={styles.input} 
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
             />
             <br />
             <label>City:</label>
-            <input 
+            <input
+                className={styles.input}  
                 type="text"
                 value={city}
                 onChange={(e) => setCity(e.target.value)}

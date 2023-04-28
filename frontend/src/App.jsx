@@ -23,6 +23,7 @@ function App() {
       <Header />
       <main className={styles.container}>
         <h2>Wilders</h2>
+        <AddWilder />
         <section className={styles["card-row"]}>
           {wilders.map((wilder) => {
             return <Wilder
@@ -35,7 +36,6 @@ function App() {
           })}
         </section>
       </main>
-      <AddWilder />
       <footer>
         <div className={styles.container}>
           <p>&copy; 2022: Wild Code School</p>

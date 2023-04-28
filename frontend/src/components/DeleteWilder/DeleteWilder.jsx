@@ -1,6 +1,7 @@
+import PropTypes from 'prop-types';
 import axios from "axios";
 
-import { useState } from "react";
+import styles from "./DeleteWilder.module.css"
 
 const DeleteWilder = ({id}) => {
 
@@ -15,5 +16,9 @@ const DeleteWilder = ({id}) => {
         </button>
     )
 };
+
+DeleteWilder.propTypes = {
+    id: PropTypes.number.isRequired
+}
 
 export default DeleteWilder;

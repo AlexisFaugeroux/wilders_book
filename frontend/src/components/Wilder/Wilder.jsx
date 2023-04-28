@@ -1,8 +1,11 @@
+import PropTypes from "prop-types";
+
 import styles from "./Wilder.module.css";
 import avatar from "../../assets/wilder-logo.png";
 
 import Skill from "../Skill/Skill";
 import DeleteWilder from "../DeleteWilder/DeleteWilder";
+
 
 const Wilder = ({id, name, city, skills}) => {
 
@@ -18,6 +21,12 @@ const Wilder = ({id, name, city, skills}) => {
             <DeleteWilder id={id}/>
         </article>
     )
+};
+
+Wilder.propTypes = {
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    skills: PropTypes.array
 }
 
 export default Wilder;
